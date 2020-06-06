@@ -8,44 +8,37 @@ using System.Text;
 
 namespace ShopApp.DataAccess.Concrete.EfCore
 {
-    public class EfCoreProductDal : IProductDal
+   public class EfCoreCategoryDal : ICategoryDal
     {
 
-
         ShopContext db = new ShopContext();
-
-        public void Create(Product entity)
+        public void Create(Category entity)
         {
-            db.Products.Add(entity);
+            db.Categories.Add(entity);
             db.SaveChanges();
         }
 
-        public void Delete(Product entity)
+        public void Delete(Category entity)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Product> GetAll(Expression<Func<Product, bool>> filter)
+        public IQueryable<Category> GetAll(Expression<Func<Category, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetById(int id)
+        public Category GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetOne(Expression<Func<Product, bool>> filter)
+        public Category GetOne(Expression<Func<Category, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetPopularProducts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Product entity)
+        public void Update(Category entity)
         {
             throw new NotImplementedException();
         }
