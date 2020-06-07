@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ShopApp.DataAccess.Concrete.Oracle
 {
-   public class OracleProductDal : IProductDal
+    public class OracleProductDal : IProductDal
     {
         public void Create(Product entity)
         {
@@ -20,7 +20,7 @@ namespace ShopApp.DataAccess.Concrete.Oracle
             throw new NotImplementedException();
         }
 
-        public IQueryable<Product> GetAll(Expression<Func<Product, bool>> filter)
+        public IEnumerable<Product> GetAll(Expression<Func<Product, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
@@ -31,6 +31,11 @@ namespace ShopApp.DataAccess.Concrete.Oracle
         }
 
         public Product GetOne(Expression<Func<Product, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Product> GetPopularProducts()
         {
             throw new NotImplementedException();
         }
