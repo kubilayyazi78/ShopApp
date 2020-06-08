@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopApp.Entities.Product>
+﻿@model ShopApp.WebUI.Models.ProductListModel
 @{
     Layout = null;
 }
@@ -7,9 +7,10 @@
 <html>
 <head>
     <title> </title>
+    <link  href="/modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Products)
     {
         <p>@item.Name</p>
     }
