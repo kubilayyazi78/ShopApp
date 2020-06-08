@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ShopApp.Business.Abstract;
+using ShopApp.Entities;
+using ShopApp.WebUI.Models;
 
 namespace ShopApp.WebUI.Controllers
 {
@@ -18,7 +20,13 @@ namespace ShopApp.WebUI.Controllers
         }
         public IActionResult Index()
         {
-            return View(_productService.GetAll());
+
+            var model = new ProductListModel()
+            {
+                Products = _productService.GetAll()
+            };
+
+            return View(model);
         }
     }
 }

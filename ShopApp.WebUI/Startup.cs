@@ -23,7 +23,7 @@ namespace ShopApp.WebUI
             //ıproduct efcore ile çalış
             //ıproduct mysql ile çalış
 
-            services.AddScoped<IProductDal, MemoryProductDal>();
+            services.AddScoped<IProductDal, EfCoreProductDal>();
             services.AddScoped<IProductService, ProductManager>();
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);

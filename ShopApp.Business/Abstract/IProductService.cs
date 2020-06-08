@@ -12,6 +12,8 @@ namespace ShopApp.Business.Abstract
 
         void Create(Product entity);
 
+        List<Product> GetPopularProducts();
+
         void Update(Product entity);
 
         void Delete(Product entity);
