@@ -3,16 +3,7 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title> </title>
-    <link  href="/modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-</head>
-<body>
-    @foreach (var item in Model.Products)
-    {
-        <p>@item.Name</p>
-    }
-</body>
-</html>
+@foreach (var item in Model.Products)
+{
+    <p>@item.Name</p>
+}
