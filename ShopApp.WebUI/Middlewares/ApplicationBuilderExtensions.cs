@@ -13,6 +13,7 @@ namespace ShopApp.WebUI.Middlewares
         public static IApplicationBuilder CustomStaticFiles(this IApplicationBuilder app)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), "node_modules");
+
             var options = new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(path),
@@ -20,7 +21,6 @@ namespace ShopApp.WebUI.Middlewares
             };
             app.UseStaticFiles(options);
             return app;
-
         }
     }
 }
