@@ -35,12 +35,13 @@ namespace ShopApp.DataAccess.Concrete.Oracle
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetPopularProducts()
+
+        public Product GetProductDetails(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetProductDetails(int id)
+        public List<Product> GetProductsByCategory(string category)
         {
             throw new NotImplementedException();
         }
