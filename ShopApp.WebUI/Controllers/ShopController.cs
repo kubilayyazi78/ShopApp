@@ -41,14 +41,14 @@ namespace ShopApp.WebUI.Controllers
             return View(model);
         }
 
-
-        public IActionResult List(string category)
+        // products/telefon?page=2
+        public IActionResult List(string category,int page=1)
         {
 
-
+            const int pageSize = 3;
             return View(new ProductListModel() { 
             
-             Products=_productService.GetProductsByCategory(category)
+             Products=_productService.GetProductsByCategory(category,page, pageSize)
             });
         }
     }

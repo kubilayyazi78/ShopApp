@@ -41,7 +41,7 @@ namespace ShopApp.DataAccess.Concrete.Oracle
             throw new NotImplementedException();
         }
 
-        public List<Product> GetProductsByCategory(string category)
+        public List<Product> GetProductsByCategory(string category ,int page,int pageSize)
         {
             throw new NotImplementedException();
         }
