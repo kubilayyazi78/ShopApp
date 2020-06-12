@@ -21,6 +21,7 @@ namespace ShopApp.WebUI.ViewComponents
         {
             var model = new CategoryListViewModel()
             {
+                SelectedCategory = RouteData.Values["category"]?.ToString(),
                 Categories = _categoryService.GetAll()
             };
             return View(model);
