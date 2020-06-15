@@ -60,5 +60,15 @@ namespace ShopApp.DataAccess.Concrete.Oracle
         {
             throw new NotImplementedException();
         }
+
+        public void Update(Product entity, string[] categoryIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Product entity, int[] categoryIds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
