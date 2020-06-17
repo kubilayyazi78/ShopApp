@@ -5,14 +5,14 @@ using System.Text;
 
 namespace ShopApp.Business.Abstract
 {
-   public interface IProductService
+   public interface IProductService:IValidator<Product>
     {
         List<Product> GetAll();
 
         Product GetProductDetails(int id);
         Product GetById(int id);
 
-        void Create(Product entity);
+        bool Create(Product entity);
 
         List<Product> GetProductsByCategory(string category , int page,int pageSize);
 
