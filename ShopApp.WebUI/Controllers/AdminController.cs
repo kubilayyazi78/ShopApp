@@ -73,12 +73,10 @@ namespace ShopApp.WebUI.Controllers
 
         public IActionResult EditProduct(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
-
             var entity = _productService.GetByIdWithCategories((int)id);
 
             if (entity == null)
@@ -88,13 +86,12 @@ namespace ShopApp.WebUI.Controllers
 
             var model = new ProductModel()
             {
+                Id = entity.Id,
                 Name = entity.Name,
+                Price = entity.Price,
                 Description = entity.Description,
                 ImageUrl = entity.ImageUrl,
-                Price = entity.Price,
-                Id = entity.Id,
-                SelectedCategories = entity.ProductCategories.Select(p => p.Category).ToList()
-
+                SelectedCategories = entity.ProductCategories.Select(i => i.Category).ToList()
             };
 
             ViewBag.Categories = _categoryService.GetAll();
@@ -116,16 +113,14 @@ namespace ShopApp.WebUI.Controllers
 
                 entity.Name = model.Name;
                 entity.Description = model.Description;
-               // entity.ImageUrl = model.ImageUrl;
                 entity.Price = model.Price;
 
-                if (file !=null)
+                if (file != null)
                 {
                     entity.ImageUrl = file.FileName;
 
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", file.FileName);
-
-                    using (var stream =new FileStream(path,FileMode.Create))
+                    using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
                     }
@@ -135,12 +130,11 @@ namespace ShopApp.WebUI.Controllers
 
                 return RedirectToAction("ProductList");
             }
-            else
-            {
-                ViewBag.Categories = _categoryService.GetAll();
 
-                return View(model);
-            }
+            ViewBag.Categories = _categoryService.GetAll();
+
+            return View(model);
+
         }
         [HttpPost]
         public IActionResult DeleteProduct(int productId)

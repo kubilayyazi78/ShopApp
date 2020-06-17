@@ -1,28 +1,24 @@
 ﻿@model ProductModel
-
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "EditProduct";
     var counter = 0;
 }
 
 <h1>Edit Product</h1>
 <hr />
+
 <form asp-controller="Admin" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row">
         <div class="col-md-8">
 
-
-
             <input type="hidden" name="Id" value="@Model.Id" />
-
             <div class="form-group row">
                 <label asp-for="Name" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Name" value="@Model.Name" class="form-control" />
                 </div>
             </div>
-
             <div class="form-group row">
                 <label asp-for="ImageUrl" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
@@ -31,11 +27,12 @@
                     <input type="file" name="file" value="" />
                 </div>
             </div>
-
             <div class="form-group row">
                 <label asp-for="Description" class="col-md-2 col-form-label"></label>
                 <div class="col-md-10">
-                    <textarea id="editor" asp-for="Description" class="form-control">@Model.Description</textarea>
+                    <textarea id="editor" asp-for="Description" class="form-control">
+                        @Model.Description
+                    </textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -58,9 +55,12 @@
                 if (Model.SelectedCategories.Any(i => i.Id == item.Id))
                 {
                     isChecked = "checked";
+
                     <input type="hidden" name="SelectedCategories[@counter].Id" value="@item.Id" />
                     <input type="hidden" name="SelectedCategories[@counter].Name" value="@item.Name" />
+
                     counter++;
+
                 }
                 else
                 {
@@ -72,11 +72,12 @@
                            name="categoryIds"
                            value="@item.Id"
                            class="custom-control-input"
-                           id="category@(item.Id)" @isChecked ) />
+                           id="category@(item.Id)"
+                           @isChecked>
                     <label class="custom-control-label" for="category@(item.Id)">@item.Name</label>
                 </div>
-
             }
         </div>
     </div>
+
 </form>
