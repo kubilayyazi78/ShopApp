@@ -92,7 +92,14 @@ namespace ShopApp.WebUI.Controllers
 
             ModelState.AddModelError("", "Email ve ya parola yanlış");
             return View(model);
-            
+
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Redirect("~/");
         }
     }
 }
