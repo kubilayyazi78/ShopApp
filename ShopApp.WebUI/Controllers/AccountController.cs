@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShopApp.WebUI.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
 
@@ -27,6 +28,7 @@ namespace ShopApp.WebUI.Controllers
 
 
         [HttpPost]
+        //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
 
@@ -67,6 +69,7 @@ namespace ShopApp.WebUI.Controllers
         }
 
         [HttpPost]
+        //   [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
             // returnUrl = returnUrl ?? "~/";
