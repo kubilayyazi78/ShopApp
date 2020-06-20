@@ -12,9 +12,13 @@ namespace ShopApp.WebUI.EmailServices
     public class EmailSender : IEmailSender
     {
 
-        private const string SendGridKey = "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";
+        // private const string SendGridKey = "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";
+
+
+
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
+            var SendGridKey = Environment.GetEnvironmentVariable("NAME_OF_THE_ENVIRONMENT_VARIABLE_FOR_YOUR_SENDGRID_KEY");
             return Execute(SendGridKey, subject, htmlMessage, email);
         }
 
@@ -24,7 +28,7 @@ namespace ShopApp.WebUI.EmailServices
 
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("info@shopapp.com", "Shop App"),
+                From = new EmailAddress("kubilayyazi@hotmail.com", "Shop App"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
