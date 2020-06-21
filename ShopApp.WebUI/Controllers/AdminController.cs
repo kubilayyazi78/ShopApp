@@ -13,7 +13,7 @@ using ShopApp.WebUI.Models;
 namespace ShopApp.WebUI.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
 
