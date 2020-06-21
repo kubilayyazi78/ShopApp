@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using ShopApp.WebUI.Extensions;
 using ShopApp.WebUI.Identity;
 using ShopApp.WebUI.Models;
 using System;
@@ -62,6 +63,16 @@ namespace ShopApp.WebUI.Controllers
 
 
                 await _emailSender.SendEmailAsync(model.Email, "Hesabınızı Onaylayınız.", $"Lütfen email hesabınızı onaylamak için linke <a href='http://localhost:58618{callbackUrl}'>tıklayınız.</a>");
+
+
+                TempData.Put("message", new ResultMessage()
+                {
+                    Title = "Forgot Password",
+                    Message = "hesabınızı onaylamak için  mail gönderildi.",
+                    Css = "warning"
+                });
+
+
                 return RedirectToAction("Login", "Account");
             }
 
@@ -121,6 +132,15 @@ namespace ShopApp.WebUI.Controllers
         {
             await _signInManager.SignOutAsync();
 
+
+            TempData.Put("message", new ResultMessage()
+            {
+                Title = "Oturum Kapatıldı.",
+                Message = "Hesabınız sonlandırıldı.",
+                Css = "warning"
+            });
+
+
             return Redirect("~/");
         }
 
@@ -128,8 +148,13 @@ namespace ShopApp.WebUI.Controllers
         {
             if (userId == null || token == null)
             {
-                TempData["message"] = "Geçersiz token.";
-                return View();
+                TempData.Put("message", new ResultMessage()
+                {
+                    Title = "Hesap Onayı",
+                    Message = "Hesap onayı için bilgiler yanlış.",
+                    Css = "danger"
+                });
+                return Redirect("~/");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -139,11 +164,21 @@ namespace ShopApp.WebUI.Controllers
                 var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
-                    TempData["message"] = "Hesabınız onaylandı.";
-                    return View();
+                    TempData.Put("message", new ResultMessage()
+                    {
+                        Title = "Hesap Onayı",
+                        Message = "Hesabınız onaylandı..",
+                        Css = "success"
+                    });
+                    return RedirectToAction("Login");
                 }
             }
-            TempData["message"] = "Hesabınız onaylanmadı.";
+            TempData.Put("message", new ResultMessage()
+            {
+                Title = "Hesap Onayı",
+                Message = "Hesabınız onaylanırken hata olustu...",
+                Css = "danger"
+            });
             return View();
         }
 
@@ -159,6 +194,12 @@ namespace ShopApp.WebUI.Controllers
 
             if (string.IsNullOrEmpty(email))
             {
+                TempData.Put("message", new ResultMessage()
+                {
+                    Title = "Forgot Password",
+                    Message = "Bilgiler hatalı.",
+                    Css = "danger"
+                });
                 return View();
             }
 
@@ -166,6 +207,12 @@ namespace ShopApp.WebUI.Controllers
 
             if (user==null)
             {
+                TempData.Put("message", new ResultMessage()
+                {
+                    Title = "Forgot Password",
+                    Message = "email hatalı.",
+                    Css = "danger"
+                });
                 return View();
             }
 
@@ -182,6 +229,14 @@ namespace ShopApp.WebUI.Controllers
 
 
             await _emailSender.SendEmailAsync(email, "Reset Password", $"Parolanızı yenilemek için linke  <a href='http://localhost:58618{callbackUrl}'>tıklayınız.</a>");
+
+            TempData.Put("message", new ResultMessage()
+            {
+                Title = "Forgot Password",
+                Message = "Parola yenilemek için hesabınıza mail gönderildi.",
+                Css = "warning"
+            });
+
             return RedirectToAction("Login", "Account");
 
 
