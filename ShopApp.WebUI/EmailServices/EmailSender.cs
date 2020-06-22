@@ -12,7 +12,7 @@ namespace ShopApp.WebUI.EmailServices
     public class EmailSender : IEmailSender
     {
 
-        // private const string SendGridKey = "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";
+        // private const string SendGridKey = "";
 
 
 
