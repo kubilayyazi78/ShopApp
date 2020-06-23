@@ -19,5 +19,14 @@ namespace ShopApp.DataAccess.Concrete.EfCore
                    .FirstOrDefault(i => i.UserId == userId);
             }
         }
+
+        public override void Update(Cart entity)
+        {
+            using (var context= new ShopContext())
+            {
+                context.Carts.Update(entity);
+                context.SaveChanges();
+            }
+        }
     }
 }
