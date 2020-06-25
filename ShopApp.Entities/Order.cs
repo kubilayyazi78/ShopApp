@@ -6,6 +6,12 @@ namespace ShopApp.Entities
 {
     public class Order
     {
+        public Order()
+        {
+            OrderItems = new List<OrderItem>();
+        }
+
+
         /*
           kredi kartı apisi için Stripe veya Iyzico kullanılabilir
         */
