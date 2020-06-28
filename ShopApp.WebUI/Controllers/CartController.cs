@@ -20,13 +20,15 @@ namespace ShopApp.WebUI.Controllers
     {
         private ICartService _cartService;
         private UserManager<ApplicationUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
         private IOrderService _orderService;
 
-        public CartController(ICartService cartService, UserManager<ApplicationUser> userManager, IOrderService orderService)
+        public CartController(ICartService cartService, UserManager<ApplicationUser> userManager, IOrderService orderService,RoleManager<IdentityRole> roleManager)
         {
             _cartService = cartService;
             _userManager = userManager;
             _orderService = orderService;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -283,6 +285,11 @@ namespace ShopApp.WebUI.Controllers
         {
 
             var userId = _userManager.GetUserId(User);
+             var sonuc=  User.IsInRole("admin");
+            if (sonuc)
+            {
+                userId = null;
+            }
 
             var orders = _orderService.GetOrders(userId);
 
