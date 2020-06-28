@@ -22,7 +22,7 @@ namespace ShopApp.WebUI.Controllers
         private UserManager<ApplicationUser> _userManager;
         private IOrderService _orderService;
 
-        public CartController(ICartService cartService ,UserManager<ApplicationUser> userManager,IOrderService orderService)
+        public CartController(ICartService cartService, UserManager<ApplicationUser> userManager, IOrderService orderService)
         {
             _cartService = cartService;
             _userManager = userManager;
@@ -73,7 +73,7 @@ namespace ShopApp.WebUI.Controllers
 
             var orderModel = new OrderModel();
 
-            orderModel.CartModel= new CartModel()
+            orderModel.CartModel = new CartModel()
             {
                 CartId = cart.Id,
                 CartItems = cart.CartItems.Select(i => new CartItemModel()
@@ -119,7 +119,7 @@ namespace ShopApp.WebUI.Controllers
                 if (payment.Status == "success")
                 {
                     SaveOrder(model, payment, userId);
-                     ClearCart(cart.Id);
+                    ClearCart(cart.Id);
                     return View("Success");
                 }
             }
@@ -242,7 +242,7 @@ namespace ShopApp.WebUI.Controllers
                 basketItem.Name = item.Name;
                 basketItem.Category1 = "Phone";
                 basketItem.ItemType = BasketItemType.PHYSICAL.ToString();
-                basketItem.Price = (item.Quantity*item.Price).ToString().Split(",")[0];
+                basketItem.Price = (item.Quantity * item.Price).ToString().Split(",")[0];
 
                 basketItems.Add(basketItem);
             }
@@ -276,6 +276,50 @@ namespace ShopApp.WebUI.Controllers
             //    return View("Success");
             //}
 
+        }
+
+
+        public IActionResult GetOrders()
+        {
+
+            var userId = _userManager.GetUserId(User);
+
+            var orders = _orderService.GetOrders(userId);
+
+
+            var orderListModel = new List<OrderListModel>();
+
+            OrderListModel orderModel;
+
+            foreach (var order in orders)
+            {
+                orderModel = new OrderListModel();
+                orderModel.OrderId = order.Id;
+                orderModel.OrderNumber = order.OrderNumber;
+                orderModel.OrderDate = order.OrderDate;
+                orderModel.OrderNote = order.OrderNote;
+                orderModel.Phone = order.Phone;
+                orderModel.FirstName = order.FirstName;
+                orderModel.LastName = order.LastName;
+                orderModel.Email = order.Email;
+                orderModel.Address = order.Address;
+                orderModel.City = order.City;
+
+                orderModel.OrderItems = order.OrderItems.Select(i => new OrderItemModel()
+                {
+                    OrderItemId=i.Id,
+                    Name=i.Product.Name,
+                     ImageUrl=i.Product.ImageUrl,
+                     Quantity=i.Quantity,
+                      Price=i.Price
+                }).ToList();
+
+                orderListModel.Add(orderModel);
+
+            }
+
+        
+            return View(orderListModel);
         }
     }
 }
